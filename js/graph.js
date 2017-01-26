@@ -1,7 +1,5 @@
 var active_node;
 
-console.log(active_node)
-
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
@@ -30,11 +28,11 @@ d3.json("nodes.json", function(error, graph) {
     .enter().append("circle")
       .attr("r", 10)
       .attr("fill", function(d) { return color(d.group); })
-      .on("click", append_text)
+      .on("click", node_onclick)
       .on("mouseover", handleMouseOver)
       .on("mouseout", handleMouseOut);
 
-  var label = svg.selectAll(".mytext")
+  var label = svg.selectAll(".label")
     .data(graph.nodes)
     .enter().append("text")
       .text(function (d) { return d.name; })
@@ -81,16 +79,18 @@ tinymce.init({
     'insertdatetime media table contextmenu paste code'
   ],
   toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
+  extended_valid_elements : 'a[onclick|href]',
   content_css: '//www.tinymce.com/css/codepen.min.css'
 });
 
-function append_text(d) {
-  
+function toggle_class(svg_element) {
   // toggle the active class
   var activeClass = "active";
   d3.selectAll("circle").classed(activeClass, false);
-  d3.select(this).classed(activeClass, true);
-  console.log("test")
+  svg_element.classed(activeClass, true);
+}
+
+function append_text(d) {
   
   // append text to editor and text box
   var content = JSON.parse(d.body);
@@ -110,6 +110,24 @@ function append_text(d) {
   var target = document.getElementById("textbox");
   target.innerHTML = content;
   
+}
+
+function target_link(node_id) {
+
+  // filter all nodes by id to find matching node
+  var target = d3.selectAll("circle").filter(function(d) {
+    return d.id == node_id; 
+  });
+  
+  toggle_class(target);
+  append_text(target.data()[0]);
+  
+}
+
+function node_onclick(d) {
+  append_text(d);
+  var node_element = d3.select(this);
+  toggle_class(node_element);
 }
 
 function save_text() {
@@ -139,7 +157,6 @@ function handleMouseOver(d, i) {
   var circle = d3.select(this);
   circle.transition()
         .attr("r", 15 );
-
 }
 
 function handleMouseOut(d, i) {
@@ -171,3 +188,7 @@ function toggle_visibility(name) {
         div.style.display = 'block';
     }
 };
+
+svg.selectAll("g").selectAll("circle")
+//  .filter(function(d) { return d.id == 0} )
+  .attr("r", 40)
