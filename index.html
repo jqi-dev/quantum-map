@@ -28,10 +28,8 @@ body {
 }
   
 #textbox {
-  width: 600px;
   height: 400px;
-  outline: 1px solid #999;
-  margin-bottom: 40px;
+  border: solid #cacaca 1px;
   padding: 10px 20px;
 }
 
@@ -45,6 +43,7 @@ button {
     display: inline-block;
     font-size: 16px;
     margin-top: 10px;
+    margin-bottom: 20px;
 }
   
 .active {
@@ -55,10 +54,17 @@ button {
 </style>
 
 <body>
+  
 <svg width="600" height="400"></svg>
-<div id="textbox"></div>
-<textarea id="editor" name="editor"></textarea>
-<button type="button" onclick="save_text()">Save</button>
+<div id="text-container">
+  <div id="textbox"></div>
+  <button type="button" onclick="toggle_editor()">Edit</button>  
+</div>
+<div id="editor-container">
+  <textarea id="editor" name="editor"></textarea>
+  <button type="button" onclick="save_text()">Save</button>
+</div>
+  
 <script src="js/d3.js"></script>
 <script src="js/graph.js"></script>
   

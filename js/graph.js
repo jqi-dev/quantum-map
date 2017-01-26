@@ -1,5 +1,7 @@
 var active_node;
 
+console.log(active_node)
+
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
@@ -70,7 +72,7 @@ d3.json("nodes.json", function(error, graph) {
 
 tinymce.init({
   selector: 'textarea',
-  height: 400,
+  height: 315,
   width: 600,
   menubar: false,
   plugins: [
@@ -115,13 +117,21 @@ function save_text() {
   
   // Get editor content
   var text = JSON.stringify(tinymce.get('editor').getContent())
+  console.log(text)
   
-  // save content to body field
-  active_node.body = text;
+  if(typeof active_node !== "undefined") {
+    // only if there is an active node
+    
+    // save content to body field of active node
+    active_node.body = text;
+    
+    // set text box to new content of body field
+    var target = document.getElementById("textbox");
+    target.innerHTML = JSON.parse(active_node.body);
+  } 
   
-  // set text box to new content of body field
-  var target = document.getElementById("textbox");
-  target.innerHTML = JSON.parse(active_node.body);
+  // toggle editor state
+  toggle_editor();
 }
 
 function handleMouseOver(d, i) { 
@@ -138,3 +148,22 @@ function handleMouseOut(d, i) {
   circle.transition()
         .attr("r", 10);
 }
+
+function toggle_editor() {
+  toggle_visibility("text-container");
+  toggle_visibility("editor-container");
+}
+
+// initialize editor as hidden
+
+document.getElementById("editor-container").style.display = 'none';
+
+function toggle_visibility(name) {
+    var div = document.getElementById(name);
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
+    else {
+        div.style.display = 'block';
+    }
+};
