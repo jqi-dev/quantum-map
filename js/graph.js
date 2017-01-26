@@ -121,7 +121,6 @@ function target_link(node_id) {
   
   toggle_class(target);
   append_text(target.data()[0]);
-  
 }
 
 function node_onclick(d) {
