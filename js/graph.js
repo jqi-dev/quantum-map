@@ -80,7 +80,7 @@ tinymce.init({
     'searchreplace visualblocks code fullscreen',
     'insertdatetime media table contextmenu paste code'
   ],
-  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
   content_css: '//www.tinymce.com/css/codepen.min.css'
 });
 
@@ -148,6 +148,10 @@ function handleMouseOut(d, i) {
   circle.transition()
         .attr("r", 10);
 }
+
+//
+// Controlling editor/viewer state
+//
 
 function toggle_editor() {
   toggle_visibility("text-container");
