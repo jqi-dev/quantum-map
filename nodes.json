@@ -1,0 +1,17 @@
+{
+  "nodes": [
+    {"id": 0, "name": "Frequency", "body": null, "group": 1},
+    {"id": 1, "name": "Spin", "body": null, "group": 2},
+    {"id": 2, "name": "Mass", "body": null, "group": 3},
+    {"id": 3, "name": "Charge", "body": null, "group": 2},
+    {"id": 4, "name": "Momentum", "body": null, "group": 1},
+    {"id": 5, "name": "State", "body": null, "group": 3}
+  ],
+  "links": [
+    {"source": 0, "target": 1, "value": 1},
+    {"source": 1, "target": 2, "value": 8},
+    {"source": 2, "target": 3, "value": 10},
+    {"source": 3, "target": 4, "value": 6},
+    {"source": 4, "target": 5, "value": 1}
+  ]
+}

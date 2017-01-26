@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  
+<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+<link rel="stylesheet" type="text/css" href="css/codepen.min.css">
+  
+</head>
+
+<style>
+  
+body {
+  max-width:600px;
+  margin-left:auto;
+  margin-right:auto;
+  font-family:Lato!important;font-size:14px;color:#626262;padding:0 25px 25px
+}
+
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+  
+#textbox {
+  width: 600px;
+  height: 400px;
+  outline: 1px solid #999;
+  margin-bottom: 40px;
+  padding: 10px 20px;
+}
+
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+}
+  
+.active {
+    fill: #4CAF50;
+    stroke-width: 1;
+}
+  
+</style>
+
+<body>
+<svg width="600" height="400"></svg>
+<div id="textbox"></div>
+<textarea id="editor" name="editor"></textarea>
+<button type="button" onclick="save_text()">Save</button>
+<script src="js/d3.js"></script>
+<script src="js/graph.js"></script>
+  
+</body>
