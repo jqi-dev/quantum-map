@@ -1,0 +1,31 @@
+Note - find some way to manage tasks?
+
+TODO:
+	- have changes persist (add a button to save JSON file)
+	- way to edit node title (separate editor maybe?)
+	- ability to add/delete nodes & edges
+		- click and drag moves node
+		- command+click and drag creates an edge
+		- for deleting a node or edge, add a popup confirming deletion
+		- box selection of nodes(?)
+	- add node button (plus sign, opens up a field for title of node)
+	- lock selection while editing (so you can’t change node focus)
+
+LONG(er) TERM:
+	- animated transitions between nodes (slight zoom effect)
+		- this way, possible to maintain spatial awareness of graph
+		- includes switching text, some kind of delayed fade
+	- create button for inserting links to text (search links by name, select, insert link)
+	- clustering by group (could be in multiple groups)
+	- Styling
+		- highlight nodes and edges adjacent to selected node
+		- highlight (different style) selected node
+		- fade all others slightly (make less prominent somehow)
+
+ISSUES:
+	- won’t get indexed by search engines b/c no html (maybe iframes are the way to go)
+	- need a way to fallback if javascript is disabled/slow (html version)
+
+
+
+
