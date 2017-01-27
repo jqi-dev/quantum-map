@@ -10,69 +10,157 @@ var color = d3.scaleOrdinal(d3.schemeCategory20);
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(200).strength(1))
     .force("charge", d3.forceManyBody())
-    .force("center", d3.forceCenter(width / 2, height / 2));
+    .force("center", d3.forceCenter(width / 2, height / 2))
+
+var nodes = [];
+var links = [];
+
+var g = svg.append("g");
+var link = g.selectAll("line");
+var node = g.selectAll("circle");
+var label = g.selectAll(".label");
 
 d3.json("nodes.json", function(error, graph) {
   if (error) throw error;
+  nodes = graph.nodes;
+  links = graph.links;
+  restart();
+});
+        
+function restart() {
 
-  var link = svg.append("g")
+  link = link.data(links);
+  link.exit().remove();
+  link.enter().append("line")
       .attr("class", "links")
-    .selectAll("line")
-    .data(graph.links)
-    .enter().append("line")
       .attr("stroke-width", 2);
-
-  var node = svg.append("g")
+  
+  node = node.data(nodes);
+  node.exit().remove();
+  node.enter().append("circle")
       .attr("class", "nodes")
-    .selectAll("circle")
-    .data(graph.nodes)
-    .enter().append("circle")
       .attr("r", 10)
       .attr("fill", function(d) { return color(d.group); })
       .on("click", node_onclick)
       .on("mouseover", handleMouseOver)
       .on("mouseout", handleMouseOut);
-
-  var label = svg.selectAll(".label")
-    .data(graph.nodes)
-    .enter().append("text")
+  
+  label = label.data(nodes);
+  label.enter().append("text")
       .text(function (d) { return d.name; })
       .style("text-anchor", "middle")
       .style("fill", "#555")
       .style("font-family", "Arial")
       .style("font-size", 12);
-
+  
   node.append("title")
       .text(function(d) { return d.id; });
-
-  simulation
-      .nodes(graph.nodes)
-      .on("tick", ticked);
-
-  simulation.force("link")
-      .links(graph.links);
-
-  function ticked() {
-    link
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-    
-    label
-        .attr("x", function(d){ return d.x; })
-        .attr("y", function (d) {return d.y -15; });
-  }
   
-  // handle downloading graph
-  d3.select("#download-input").on("click", function(){
-    var blob = new Blob([window.JSON.stringify({"nodes": graph.nodes, "edges": graph.links})], {type: "text/plain;charset=utf-8"});
-    window.saveAs(blob, "new_graph.json");
-  });
+  simulation.nodes(nodes).on("tick", ticked);
+  simulation.force("link").links(links);
+  simulation.restart();
+}
+
+function ticked() {
+  link
+      .attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
+  node
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+
+  label
+      .attr("x", function(d){ return d.x; })
+      .attr("y", function (d) {return d.y -15; });
+}
+  
+d3.select("#add_node").on("click", function(){
+  var node_id = nodes.length;
+  var new_node = {"id": node_id, 
+                  "name": "New node", 
+                  "body": null, 
+                  "group": 1,
+                  "vx": 0,
+                  "vy": 0,
+                  "x": 200,
+                  "y": 200
+                 };
+  simulation.stop();
+  nodes.push(new_node)
+  restart();
+});
+
+//d3.json("nodes.json", function(error, graph) {
+//  if (error) throw error;
+//  
+//  var link = svg.append("g")
+//      .attr("class", "links")
+//    .selectAll("line")
+//    .data(graph.links)
+//    .enter().append("line")
+//      .attr("stroke-width", 2);
+//
+//  var node = svg.append("g")
+//      .attr("class", "nodes")
+//    .selectAll("circle")
+//    .data(graph.nodes)
+//    .enter().append("circle")
+//      .attr("r", 10)
+//      .attr("fill", function(d) { return color(d.group); })
+//      .on("click", node_onclick)
+//      .on("mouseover", handleMouseOver)
+//      .on("mouseout", handleMouseOut);
+//
+//  var label = svg.selectAll(".label")
+//    .data(graph.nodes)
+//    .enter().append("text")
+//      .text(function (d) { return d.name; })
+//      .style("text-anchor", "middle")
+//      .style("fill", "#555")
+//      .style("font-family", "Arial")
+//      .style("font-size", 12);
+//
+//  node.append("title")
+//      .text(function(d) { return d.id; });
+//
+//  simulation
+//      .nodes(graph.nodes)
+//      .on("tick", ticked);
+//
+//  simulation.force("link")
+//      .links(graph.links);
+//
+//  function ticked() {
+//    link
+//        .attr("x1", function(d) { return d.source.x; })
+//        .attr("y1", function(d) { return d.source.y; })
+//        .attr("x2", function(d) { return d.target.x; })
+//        .attr("y2", function(d) { return d.target.y; });
+//
+//    node
+//        .attr("cx", function(d) { return d.x; })
+//        .attr("cy", function(d) { return d.y; });
+//    
+//    label
+//        .attr("x", function(d){ return d.x; })
+//        .attr("y", function (d) {return d.y -15; });
+//  }
+//
+//  // handle downloading graph
+//  d3.select("#download-input").on("click", function(){
+//    var blob = new Blob([window.JSON.stringify({"nodes": graph.nodes, "edges": graph.links})], {type: "text/plain;charset=utf-8"});
+//    window.saveAs(blob, "new_graph.json");
+//  });
+//  
+//});
+
+// handle downloading graph
+d3.select("#download-input").on("click", function(){
+  var blob = new Blob([window.JSON.stringify({"nodes": nodes, "links": links})], {type: "text/plain;charset=utf-8"});
+  window.saveAs(blob, "new_graph.json");
 });
 
 tinymce.init({
@@ -141,7 +229,6 @@ function save_text() {
   
   // Get editor content
   var text = JSON.stringify(tinymce.get('editor').getContent())
-  console.log(text)
   
   if(typeof active_node !== "undefined") {
     // only if there is an active node
