@@ -1,7 +1,6 @@
 Note - find some way to manage tasks?
 
 TODO:
-	- have changes persist (add a button to save JSON file)
 	- way to edit node title (separate editor maybe?)
 	- ability to add/delete nodes & edges
 		- click and drag moves node

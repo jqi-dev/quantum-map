@@ -1,4 +1,5 @@
 var active_node;
+var Blob;
 
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
@@ -66,6 +67,12 @@ d3.json("nodes.json", function(error, graph) {
         .attr("x", function(d){ return d.x; })
         .attr("y", function (d) {return d.y -15; });
   }
+  
+  // handle downloading graph
+  d3.select("#download-input").on("click", function(){
+    var blob = new Blob([window.JSON.stringify({"nodes": graph.nodes, "edges": graph.links})], {type: "text/plain;charset=utf-8"});
+    window.saveAs(blob, "new_graph.json");
+  });
 });
 
 tinymce.init({
@@ -187,7 +194,3 @@ function toggle_visibility(name) {
         div.style.display = 'block';
     }
 };
-
-svg.selectAll("g").selectAll("circle")
-//  .filter(function(d) { return d.id == 0} )
-  .attr("r", 40)

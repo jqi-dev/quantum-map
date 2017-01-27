@@ -4,6 +4,7 @@
 <head>
   
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+<script src="//cdn.jsdelivr.net/filesaver.js/0.1/FileSaver.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/codepen.min.css">
   
 </head>
@@ -55,17 +56,23 @@ button {
 
 <body>
   
-<svg width="600" height="400"></svg>
-<div id="text-container">
-  <div id="textbox"></div>
-  <button type="button" onclick="toggle_editor()">Edit</button>  
-</div>
-<div id="editor-container">
-  <textarea id="editor" name="editor"></textarea>
-  <button type="button" onclick="save_text()">Save</button>
-</div>
-<a onclick="target_link(0); return false;" href="#">Frequency</a>  
-<script src="js/d3.js"></script>
-<script src="js/graph.js"></script>
+  <svg width="600" height="400"></svg>
+  
+  <div id="text-container">
+    <div id="textbox"></div>
+    <button type="button" onclick="toggle_editor()">Edit</button>  
+  </div>
+  
+  <div id="editor-container">
+    <textarea id="editor" name="editor"></textarea>
+    <button type="button" onclick="save_text()">Save</button>
+  </div>
+  
+  <a onclick="target_link(0); return false;" href="#">Frequency</a>
+  <br>
+  <button type="button" id="download-input">Save json</button>
+  
+  <script src="js/d3.js"></script>
+  <script src="js/graph.js"></script>
   
 </body>
