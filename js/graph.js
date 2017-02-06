@@ -49,17 +49,17 @@ function restart() {
       .on("mouseover", handleMouseOver)
       .on("mouseout", handleMouseOut);
   
-//  label = svg.selectAll(".label").data(nodes);
-//  label.exit().remove();
-//  label = label.data(nodes).enter().append("text")
-//      .text(function (d) { return d.name; })
-//      .style("text-anchor", "middle")
-//      .style("fill", "#555")
-//      .style("font-family", "Arial")
-//      .style("font-size", 12);
+  label = svg.selectAll(".label").data(nodes);
+  label.exit().remove();
+  label = label.data(nodes).enter().append("text")
+      .text(function (d) { return d.name; })
+      .style("text-anchor", "middle")
+      .style("fill", "#555")
+      .style("font-family", "Arial")
+      .style("font-size", 12);
   
-//  node.append("title")
-//      .text(function(d) { return d.id; });
+  node.append("title")
+      .text(function(d) { return d.id; });
   
   simulation.nodes(nodes);
   simulation.force("link").links(links);
