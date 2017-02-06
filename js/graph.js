@@ -8,7 +8,7 @@ var svg = d3.select("svg"),
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
 var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(200).strength(0.5))
+    .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(100))
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2))
     .alphaTarget(0)
@@ -17,8 +17,8 @@ var simulation = d3.forceSimulation()
 var nodes;
 var links;
 
-var link = svg.selectAll("line");
-var node = svg.selectAll("circle");
+var link = svg.selectAll(".line");
+var node = svg.selectAll(".circle");
 var label = svg.selectAll(".label");
 
 d3.json("nodes.json", function(error, graph) {
@@ -30,17 +30,15 @@ d3.json("nodes.json", function(error, graph) {
         
 function restart() {
 
-  link = svg.selectAll("line").data(links);
-  link.exit().remove();
-//  svg.selectAll("line").remove();
-  link = link.data(links).enter().append("line")
+  link = svg.selectAll(".line").data(links, function(d) { return d.source.id + "-" + d.target.id;})
+      .enter().append("line")
       .attr("stroke-width", 2)
       .attr("stroke", "#999")
       .attr("stroke-opacity", 0.6)
+  link.exit().remove();
 
-  node = svg.selectAll("circle").data(nodes);
-  node.exit().remove();
-  node = node.data(nodes).enter().append("circle")
+  node = svg.selectAll(".circle").data(nodes, function(d) { return d.id;})
+      .enter().append("circle")
       .attr("stroke", "#fff")
       .attr("stroke-width", 1.5)
       .attr("r", 10)
@@ -48,18 +46,16 @@ function restart() {
       .on("click", node_onclick)
       .on("mouseover", handleMouseOver)
       .on("mouseout", handleMouseOut);
-  
-  label = svg.selectAll(".label").data(nodes);
-  label.exit().remove();
-  label = label.data(nodes).enter().append("text")
+  node.exit().remove();
+ 
+  label = svg.selectAll(".label").data(nodes, function(d) {return d.id;})
+      .enter().append("text")
       .text(function (d) { return d.name; })
       .style("text-anchor", "middle")
       .style("fill", "#555")
       .style("font-family", "Arial")
       .style("font-size", 12);
-  
-  node.append("title")
-      .text(function(d) { return d.id; });
+  label.exit().remove();
   
   simulation.nodes(nodes);
   simulation.force("link").links(links);
@@ -89,6 +85,8 @@ function getRandomInt(min, max) {
 
 d3.select("#add_node").on("click", function(){
   simulation.stop();
+  // shouldn't need to remove all, but wasn't working otherwise
+  svg.selectAll("*").remove();
   var node_id = nodes.length;
   var new_node = {"id": node_id, 
                   "name": "New node", 
