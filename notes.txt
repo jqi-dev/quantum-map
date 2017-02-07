@@ -2,12 +2,12 @@ Note - find some way to manage tasks?
 
 TODO:
 	- way to edit node title (separate editor maybe?)
-	- ability to add/delete nodes & edges (*)
-		- click and drag moves node
+	- ability to add/delete nodes & edges
 		- command+click and drag creates an edge
 		- for deleting a node or edge, add a popup confirming deletion
-		- box selection of nodes(?)
-	- add node button (plus sign, opens up a field for title of node)
+		- box selection of nodes (shift + click)
+			- need to style movement selection
+	- style add node button (plus sign, opens up a field for title of node)
 	- lock selection while editing (so you can’t change node focus)
 
 LONG(er) TERM:
@@ -24,5 +24,3 @@ LONG(er) TERM:
 ISSUES:
 	- won’t get indexed by search engines b/c no html (maybe iframes are the way to go)
 	- need a way to fallback if javascript is disabled/slow (html version)
-
-(*) Currently working on. Adding a node is working, but all objects are duplicated. Also the force simulation doesn’t work.

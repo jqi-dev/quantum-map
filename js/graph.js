@@ -3,18 +3,12 @@ var Blob;
 
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
-    height = +svg.attr("height");
+    height = +svg.attr("height"),
     transform = d3.zoomIdentity;;
 
 svg.call(d3.zoom()
     .scaleExtent([1 / 2, 3])
     .on("zoom", zoomed));
-
-//var drag = d3.drag()
-//    .origin(function(d) { return d; })
-//    .on("dragstart", dragstarted)
-//    .on("drag", dragged)
-//    .on("dragend", dragended);
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
@@ -76,7 +70,7 @@ function restart() {
   
   simulation.nodes(nodes);
   simulation.force("link").links(links);
-  simulation.alpha(1).restart();
+  simulation.alpha(0.1).restart();
   
 }
 
@@ -102,7 +96,6 @@ function getRandomInt(min, max) {
 
 d3.select("#add_node").on("click", function(){
   simulation.stop();
-  // shouldn't need to remove all, but wasn't working otherwise
   g.selectAll("*").remove();
   var node_id = nodes.length;
   var new_node = {"id": node_id, 
@@ -131,7 +124,7 @@ d3.select("#download-input").on("click", function(){
 });
 
 tinymce.init({
-  selector: 'textarea',
+  selector: '#editor',
   height: 315,
   width: 600,
   menubar: false,
@@ -156,6 +149,7 @@ function append_text(d) {
   
   // append text to editor and text box
   var content = JSON.parse(d.body);
+  var title = d.name;
   
   // if there is something in the body field, open in the editor
   if (content != null) {
@@ -171,18 +165,8 @@ function append_text(d) {
   // render body field into the text box
   var target = document.getElementById("textbox");
   target.innerHTML = content;
-  
-}
-
-function target_link(node_id) {
-
-  // filter all nodes by id to find matching node
-  var target = d3.selectAll("circle").filter(function(d) {
-    return d.id == node_id; 
-  });
-  
-  toggle_class(target);
-  append_text(target.data()[0]);
+  var title_target = document.getElementById("title-editor")
+  title_target.value = title;
 }
 
 function node_onclick(d) {
@@ -196,16 +180,27 @@ function save_text() {
   
   // Get editor content
   var text = JSON.stringify(tinymce.get('editor').getContent())
+  var title = document.getElementById("title-editor").value;
   
   if(typeof active_node !== "undefined") {
     // only if there is an active node
     
     // save content to body field of active node
     active_node.body = text;
-    
+    active_node.name = title;
     // set text box to new content of body field
     var target = document.getElementById("textbox");
     target.innerHTML = JSON.parse(active_node.body);
+    
+    // update graph
+    g.selectAll("*").remove();
+    restart();
+    
+    // filter all nodes by id to find matching node
+    var selected_node = d3.selectAll("circle").filter(function(d) {
+    return d.id == active_node.id; })
+    // reset node to active class
+    toggle_class(selected_node);
   } 
   
   // toggle editor state
@@ -233,11 +228,13 @@ function handleMouseOut(d, i) {
 function toggle_editor() {
   toggle_visibility("text-container");
   toggle_visibility("editor-container");
+  toggle_visibility("title-container")
 }
 
 // initialize editor as hidden
 
 document.getElementById("editor-container").style.display = 'none';
+document.getElementById("title-container").style.display = 'none';
 
 function toggle_visibility(name) {
     var div = document.getElementById(name);
@@ -250,7 +247,6 @@ function toggle_visibility(name) {
 };
 
 function zoomed() {
-  console.log("test")
   g.attr("transform", d3.event.transform);
 }
 
@@ -258,5 +254,6 @@ function dragged(d) {
   d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
   simulation.nodes(nodes);
   simulation.force("link").links(links);
-  simulation.alpha(1).restart();
+  // can set amount of simulation, 0-1. 0 means nodes don't move when adjusting position
+  simulation.alpha(0).restart();
 }
