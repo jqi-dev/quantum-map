@@ -20,6 +20,7 @@ LONG(er) TERM:
 		- highlight nodes and edges adjacent to selected node
 		- highlight (different style) selected node
 		- fade all others slightly (make less prominent somehow)
+	- Undo/redo functionality (save entire json structure in some temporary list, be able to step through the list to access previous states)
 
 ISSUES:
 	- won’t get indexed by search engines b/c no html (maybe iframes are the way to go)
