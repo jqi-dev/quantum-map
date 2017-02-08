@@ -6,7 +6,8 @@ var svg = d3.select("svg"),
     height = +svg.attr("height"),
     transform = d3.zoomIdentity;;
 
-svg.call(d3.zoom()
+svg.on("mouseup", mouseup)
+    .call(d3.zoom()
     .scaleExtent([1 / 2, 3])
     .on("zoom", zoomed));
 
@@ -55,6 +56,7 @@ function restart() {
       .on("click", node_onclick)
       .on("mouseover", handleMouseOver)
       .on("mouseout", handleMouseOut)
+      .on("mousedown", mousedowned)
       .call(d3.drag()
         .on("drag", dragged));
   node.exit().remove();
@@ -117,6 +119,19 @@ d3.select("#add_node").on("click", function(){
   restart();
 });
 
+//d3.select("#add_edge").on("click", function(){
+//  simulation.stop();
+//  g.selectAll("*").remove();
+//  var node_id = nodes.length;
+//  var new_link = {"index": links.length,
+//                  "source": nodes[node_id],
+//                  "target": nodes[getRandomInt(0,node_id)],
+//                  "weight": 1
+//  };
+//  links.push(new_link);
+//  restart();
+//});
+
 // handle downloading graph
 d3.select("#download-input").on("click", function(){
   var blob = new Blob([window.JSON.stringify({"nodes": nodes, "links": links})], {type: "text/plain;charset=utf-8"});
@@ -170,9 +185,11 @@ function append_text(d) {
 }
 
 function node_onclick(d) {
-  append_text(d);
-  var node_element = d3.select(this);
-  toggle_class(node_element);
+  if (!shiftDown) {
+    append_text(d);
+    var node_element = d3.select(this);
+    toggle_class(node_element);
+  }
 }
 
 function save_text() {
@@ -211,7 +228,7 @@ function handleMouseOver(d, i) {
   // select element, change size
   var circle = d3.select(this);
   circle.transition()
-        .attr("r", 15 );
+        .attr("r", 12 );
 }
 
 function handleMouseOut(d, i) {
@@ -222,19 +239,44 @@ function handleMouseOut(d, i) {
 }
 
 //
+// Shift key logic for editing edges
+//
+
+var shiftDown = false;
+var setShiftDown = function(event){
+    if(event.keyCode === 16 || event.charCode === 16){
+        window.shiftDown = true;
+        svg.classed("crosshair", shiftDown)
+    }
+};
+
+var setShiftUp = function(event){
+    if(event.keyCode === 16 || event.charCode === 16){
+        window.shiftDown = false;
+        svg.classed("crosshair", shiftDown)
+    }
+};
+
+window.addEventListener? document.addEventListener('keydown', setShiftDown) : document.attachEvent('keydown', setShiftDown);
+window.addEventListener? document.addEventListener('keyup', setShiftUp) : document.attachEvent('keyup', setShiftUp);
+
+//
 // Controlling editor/viewer state
 //
 
 function toggle_editor() {
+  // swap visibility of editor and text div
   toggle_visibility("text-container");
   toggle_visibility("editor-container");
-  toggle_visibility("title-container")
+  // swap ability to edit title field
+  var read_value = document.getElementById("title-editor").readOnly
+  document.getElementById("title-editor").readOnly = !read_value;
 }
 
 // initialize editor as hidden
 
 document.getElementById("editor-container").style.display = 'none';
-document.getElementById("title-container").style.display = 'none';
+document.getElementById("title-editor").readOnly = true;
 
 function toggle_visibility(name) {
     var div = document.getElementById(name);
@@ -251,9 +293,40 @@ function zoomed() {
 }
 
 function dragged(d) {
-  d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
-  simulation.nodes(nodes);
-  simulation.force("link").links(links);
-  // can set amount of simulation, 0-1. 0 means nodes don't move when adjusting position
-  simulation.alpha(0).restart();
+  if (!shiftDown) {
+    d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+    simulation.nodes(nodes);
+    simulation.force("link").links(links);
+    // can set amount of simulation, 0-1. 0 means nodes don't move when adjusting position
+    simulation.alpha(0).restart();
+  }
+}
+
+function mousedowned() {
+  var stop = d3.event.button || d3.event.shiftKey;
+  if (stop) {
+    d3.event.stopImmediatePropagation(); // stop zoom
+    var circle = d3.select(this);
+    var x_pos = circle.data()[0].x;
+    var y_pos = circle.data()[0].y;
+    var line = g.append("line")
+        .attr("class", ".dashed")
+        .attr("x1", x_pos)
+        .attr("y1", y_pos)
+        .attr("x2", x_pos)
+        .attr("y2", y_pos)
+        .attr("stroke-width", 2)
+        .attr("stroke", "#999")
+        .attr("stroke-opacity", 0.6)
+        .style("stroke-dasharray", ("3, 3"))
+    svg.on("mousemove", function() {
+      line.attr("x2", d3.event.clientX)
+          .attr("y2", d3.event.clientY);
+    });
+  }
+}
+
+function mouseup() {
+  svg.on("mousemove", function() {null});
+  g.selectAll("line").select(".dashed").remove();
 }

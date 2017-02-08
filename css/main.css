@@ -21,6 +21,10 @@ svg {
   margin-top: 50px;
 }
 
+.crosshair {
+  cursor: crosshair;
+}
+
 button {
     background-color: #4CAF50; /* Green */
     border: none;
@@ -35,9 +39,15 @@ button {
 }
   
 .active {
-    fill: #4CAF50;
-    stroke-width: 1;
+    stroke-width: 2;
+    stroke: #2a2a2a;
 }
+
+/*
+.label {
+  user-select: none; 
+}
+*/
 
 #title-editor {
   width: 100%;
