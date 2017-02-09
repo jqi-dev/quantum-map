@@ -1,7 +1,6 @@
 Note - find some way to manage tasks?
 
 TODO:
-	- way to edit node title (separate editor maybe?)
 	- ability to add/delete nodes & edges
 		- command+click and drag creates an edge
 		- for deleting a node or edge, add a popup confirming deletion
@@ -11,6 +10,8 @@ TODO:
 	- lock selection while editing (so you can’t change node focus)
 
 LONG(er) TERM:
+	- bubble view of published map
+	- Check for duplicates when adding a node title
 	- animated transitions between nodes (slight zoom effect)
 		- this way, possible to maintain spatial awareness of graph
 		- includes switching text, some kind of delayed fade
@@ -21,6 +22,8 @@ LONG(er) TERM:
 		- highlight (different style) selected node
 		- fade all others slightly (make less prominent somehow)
 	- Undo/redo functionality (save entire json structure in some temporary list, be able to step through the list to access previous states)
+	- Internal search
+	- Mobile
 
 ISSUES:
 	- won’t get indexed by search engines b/c no html (maybe iframes are the way to go)

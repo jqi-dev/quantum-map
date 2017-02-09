@@ -119,18 +119,18 @@ d3.select("#add_node").on("click", function(){
   restart();
 });
 
-//d3.select("#add_edge").on("click", function(){
-//  simulation.stop();
-//  g.selectAll("*").remove();
-//  var node_id = nodes.length;
-//  var new_link = {"index": links.length,
-//                  "source": nodes[node_id],
-//                  "target": nodes[getRandomInt(0,node_id)],
-//                  "weight": 1
-//  };
-//  links.push(new_link);
-//  restart();
-//});
+d3.select("#add_edge").on("click", function(){
+  simulation.stop();
+  g.selectAll("*").remove();
+  var node_id = nodes.length-1;
+  var new_link = {"index": links.length,
+                  "source": nodes[getRandomInt(0,node_id)],
+                  "target": nodes[getRandomInt(0,node_id)],
+                  "weight": 1
+  };
+  links.push(new_link);
+  restart();
+});
 
 // handle downloading graph
 d3.select("#download-input").on("click", function(){
@@ -328,5 +328,21 @@ function mousedowned() {
 
 function mouseup() {
   svg.on("mousemove", function() {null});
-  g.selectAll("line").select(".dashed").remove();
+  g.selectAll("line").remove();
+}
+
+//
+// Handle internal linking
+//
+
+function target_link(node_id) {
+
+  // filter all nodes by id to find matching node
+  var target = d3.selectAll("circle").filter(function(d) {
+    return d.id == node_id; 
+  });
+  
+  toggle_class(target);
+  append_text(target.data()[0]);
+  
 }
