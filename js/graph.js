@@ -23,7 +23,7 @@ var simulation = d3.forceSimulation()
 var nodes;
 var links;
 
-svg.append("g")
+svg.append("g");
 
 var g = svg.select("g");
 
@@ -288,8 +288,15 @@ function toggle_visibility(name) {
     }
 };
 
+var currentZoom = 1;
+var translate_x = 0;
+var translate_y = 0;
+
 function zoomed() {
   g.attr("transform", d3.event.transform);
+  currentZoom = d3.event.transform.k;
+  translate_x = d3.event.transform.x;
+  translate_y = d3.event.transform.y;
 }
 
 function dragged(d) {
@@ -309,7 +316,8 @@ function mousedowned() {
     var circle = d3.select(this);
     var x_pos = circle.data()[0].x;
     var y_pos = circle.data()[0].y;
-    var line = g.append("line")
+    g.append("g");
+    var line = g.select("g").append("line")
         .attr("class", ".dashed")
         .attr("x1", x_pos)
         .attr("y1", y_pos)
@@ -320,15 +328,16 @@ function mousedowned() {
         .attr("stroke-opacity", 0.6)
         .style("stroke-dasharray", ("3, 3"))
     svg.on("mousemove", function() {
-      line.attr("x2", d3.event.clientX)
-          .attr("y2", d3.event.clientY);
+      line.attr("x2", d3.mouse(this)[0] * currentZoom)
+          .attr("y2", d3.mouse(this)[1] * currentZoom);
     });
+//    svg.on("mousemove", mousemove);
   }
 }
 
 function mouseup() {
   svg.on("mousemove", function() {null});
-  g.selectAll("line").remove();
+  g.select("g").remove();
 }
 
 //
@@ -344,5 +353,8 @@ function target_link(node_id) {
   
   toggle_class(target);
   append_text(target.data()[0]);
-  
+}
+
+function mousemove(d, i) {
+  console.log(d3.mouse(this));
 }
