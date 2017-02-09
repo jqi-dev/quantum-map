@@ -331,7 +331,6 @@ function mousedowned() {
       line.attr("x2", d3.mouse(this)[0] * currentZoom)
           .attr("y2", d3.mouse(this)[1] * currentZoom);
     });
-//    svg.on("mousemove", mousemove);
   }
 }
 
@@ -339,7 +338,6 @@ function mouseup() {
   svg.on("mousemove", function() {null});
   g.select("g").remove();
 }
-
 //
 // Handle internal linking
 //
@@ -355,6 +353,21 @@ function target_link(node_id) {
   append_text(target.data()[0]);
 }
 
-function mousemove(d, i) {
-  console.log(d3.mouse(this));
+//
+// Delete nodes
+//
+
+function delete_node() {
+  // remove node from array of nodes
+  nodes.splice(active_node.id, 1);
+  // remove associated edges from array of edges
+  var i = links.length;
+  while (i--) {
+    if (links[i].source == active_node || links[i].target == active_node) {
+      links.splice(i, 1);
+    }
+  }
+//  console.log(links[0].source)
+  g.selectAll("*").remove();
+  restart()
 }
