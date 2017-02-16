@@ -254,9 +254,9 @@ function save_text() {
 
         // filter all nodes by id to find matching node
         var selected_node = d3.selectAll("circle").filter(function(d) {
-                return d.id == active_node.id;
-            })
-            // reset node to active class
+            return d.id == active_node.id;
+        })
+        // reset node to active class
         toggle_class(selected_node);
     }
 
@@ -264,6 +264,9 @@ function save_text() {
     toggle_editor();
 }
 
+/*
+ * mouse over node
+ */
 function handleMouseOver(d, i) {
     // select element, change size
     var circle = d3.select(this);
@@ -412,3 +415,47 @@ function delete_node() {
     g.selectAll("*").remove();
     restart()
 }
+
+/*
+ * Fisheye distortion
+ */
+var fisheye = d3.fisheye.circular()
+    .radius(200)
+    .distortion(2);
+
+svg.on("mousemove", function() {
+    fisheye.focus(d3.mouse(this));
+
+    node.each(function(d) {
+            d.fisheye = fisheye(d);
+        })
+        .attr("cx", function(d) {
+            return d.fisheye.x;
+        })
+        .attr("cy", function(d) {
+            return d.fisheye.y;
+        })
+        .attr("r", function(d) {
+            return d.fisheye.z * 4.5;
+        });
+
+    link.attr("x1", function(d) {
+            return d.source.fisheye.x;
+        })
+        .attr("y1", function(d) {
+            return d.source.fisheye.y;
+        })
+        .attr("x2", function(d) {
+            return d.target.fisheye.x;
+        })
+        .attr("y2", function(d) {
+            return d.target.fisheye.y;
+        });
+
+    label.attr("x", function(d) {
+            return d.fisheye.x;
+        })
+        .attr("y", function(d) {
+            return d.fisheye.y - 15;
+        });
+});
