@@ -2,40 +2,54 @@
 <meta charset="utf-8">
 
 <head>
-  
-<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-<script src="//cdn.jsdelivr.net/filesaver.js/0.1/FileSaver.min.js"></script>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/codepen.min.css">
-<link rel="stylesheet" type="text/css" href="css/main.css">
-  
+
+    <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+    <script src="//cdn.jsdelivr.net/filesaver.js/0.1/FileSaver.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/codepen.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
 </head>
 
 <body>
-  
-  <svg width="600" height="400"></svg>
-  <button type="button" id="add_node">add node</button>
-  <button type="button" id="add_edge">add edge</button>  
-  
-  <div id="title-container">
-    <textarea id="title-editor"></textarea>
-  </div>
-  
-  <div id="text-container">
-    <div id="textbox"></div>
-    <button type="button" onclick="toggle_editor()">Edit</button>
-    <button type="button" onclick="delete_node()">Delete</button>  
-  </div>
-  
-  <div id="editor-container">
-    <textarea id="editor" name="editor"></textarea>
-    <button type="button" onclick="save_text()">Save</button>
-  </div>
-  
-  <a onclick="target_link(0); return false;" href="#">Frequency</a>
-  <br>
-  <button type="button" id="download-input">Save json</button>
-  
-  
-  <script src="js/graph.js"></script>
+    <table style="width: 920px; border: 0px; margin: 0px auto;">
+        <tr>
+            <td style="width: 600px; padding: 0px; padding-right: 10px;">
+                <svg width="600" height="517" style="margin: 0px; margin-bottom: -4px;"></svg>
+                <div id="buttonbox" style="padding-top: 0px;">
+                    <button type="button" id="add_node">add node</button>
+                    <button type="button" id="add_edge">add edge</button>
+                </div>
+            </td>
+            <td style="padding: 0px;">
+                <div id="title-container">
+                    <textarea id="title-editor"></textarea>
+                </div>
+
+                <div id="text-container">
+                    <div id="textbox"></div>
+                    <div id="buttonbox">
+                        <button type="button" onclick="toggle_editor()">Edit</button>
+                        <button type="button" onclick="delete_node()">Delete</button>
+                    </div>
+                </div>
+
+                <div id="editor-container">
+                    <textarea id="editor" name="editor"></textarea>
+                    <div id="buttonbox">
+                        <button type="button" onclick="save_text()">Save</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="background-color: #fff; text-align: center;">
+                <a onclick="target_link(0); return false;" href="#">Frequency</a>
+                <br>
+                <button type="button" id="download-input">Save json</button>
+            </td>
+        </tr>
+    </table>
+
+    <script src="js/graph.js"></script>
 </body>
