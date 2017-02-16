@@ -1,43 +1,40 @@
+html {
+    width: 100%;
+}
 body {
-  max-width:600px;
-  margin-left:auto;
-  margin-right:auto;
-  font-family:Lato!important;font-size:14px;color:#626262;padding:0 25px 25px
+    /*max-width:600px;*/
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Lato!important;
+    font-size: 14px;
+    color: #626262;
+    padding: 0px;
 }
-
 .nodes circle {
-  stroke: #fff;
-  stroke-width: 1.5px;
+    stroke: #fff;
+    stroke-width: 1.5px;
 }
-  
-#textbox {
-  height: 400px;
-  border: solid #cacaca 1px;
-  padding: 10px 20px;
-}
-  
 svg {
-  border: solid #cacaca 1px;
-  margin-top: 50px;
+    border: solid #cacaca 1px;
 }
-
 .crosshair {
-  cursor: crosshair;
+    cursor: crosshair;
 }
-
 button {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
+    /* Green */
     border: none;
+    border-radius: 10px;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 15px;
     text-align: center;
     text-decoration: none;
+    text-transform: uppercase;
     display: inline-block;
     font-size: 16px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin: auto;
 }
-  
 .active {
     stroke-width: 2;
     stroke: #2a2a2a;
@@ -45,30 +42,43 @@ button {
 
 /*
 .label {
-  user-select: none; 
+  user-select: none;
 }
 */
 
-#title-editor {
-  width: 100%;
-  border: solid #cacaca 1px;
-  font-size:30px
+#title-container {
+    width: 300px;
+    margin-top: 0px;
 }
-
+#title-editor {
+    width: 100%;
+    border: solid #cacaca 1px;
+    font-size: 30px;
+    text-align: center;
+}
+#text-container {
+    width: 300px;
+}
+#textbox {
+    height: 438px!important;
+    border: solid #cacaca 1px;
+    padding: 10px 10px;
+}
+#buttonbox {
+    margin-top: 5px;
+    text-align: center;
+}
 textarea {
-  resize: none;
-  overflow: hidden!important;
-  outline: none !important;
-  height: 55px;
-
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  
-  padding:10px 20px;
-  color:#626262
+    resize: none;
+    overflow: hidden!important;
+    outline: none !important;
+    height: 55px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    color: #626262;
 }
