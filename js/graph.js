@@ -464,16 +464,19 @@ svg.on("mousemove", function() {
  * Search nodes
  */
 d3.select("#search_node").on("click", function() {
-  console.log("search");
-  var searchElement = document.getElementById("search_bar").value;
-  var i;
-  var searchedNode;
-  for (i = 0; i < nodes.length; i++) {
-    if (nodes[i].name.toUpperCase() === searchElement.toUpperCase()) {
-      searchedNode = nodes[i];
-      console.log(searchedNode.name);
+    console.log("search");
+    var searchElement = document.getElementById("search_bar").value;
+    var i;
+    var searchedNode;
+    for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].name.toUpperCase() === searchElement.toUpperCase()) {
+            searchedNode = nodes[i];
+            console.log(searchedNode.name);
+        }
     }
-  }
-  append_text(searchedNode);
-  toggle_class(d3.select(searchedNode));
+    append_text(searchedNode);
+    var target = d3.selectAll("circle").filter(function(d) {
+        return d.id == searchedNode.id;
+    });
+    toggle_class(target);
 });
