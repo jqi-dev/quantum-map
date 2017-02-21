@@ -459,3 +459,21 @@ svg.on("mousemove", function() {
             return d.fisheye.y - 15;
         });
 });
+
+/*
+ * Search nodes
+ */
+d3.select("#search_node").on("click", function() {
+  console.log("search");
+  var searchElement = document.getElementById("search_bar").value;
+  var i;
+  var searchedNode;
+  for (i = 0; i < nodes.length; i++) {
+    if (nodes[i].name.toUpperCase() === searchElement.toUpperCase()) {
+      searchedNode = nodes[i];
+      console.log(searchedNode.name);
+    }
+  }
+  append_text(searchedNode);
+  toggle_class(d3.select(searchedNode));
+});
