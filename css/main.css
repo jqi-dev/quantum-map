@@ -1,6 +1,7 @@
 html {
     width: 100%;
 }
+
 body {
     /*max-width:600px;*/
     width: 100%;
@@ -11,16 +12,20 @@ body {
     color: #626262;
     padding: 0px;
 }
+
 .nodes circle {
     stroke: #fff;
     stroke-width: 1.5px;
 }
+
 svg {
     border: solid #cacaca 1px;
 }
+
 .crosshair {
     cursor: crosshair;
 }
+
 button {
     background-color: #4CAF50;
     /* Green */
@@ -35,10 +40,12 @@ button {
     font-size: 16px;
     margin: auto;
 }
+
 .active {
     stroke-width: 2;
     stroke: #2a2a2a;
 }
+
 
 /*
 .label {
@@ -46,28 +53,46 @@ button {
 }
 */
 
+input[type=submit], input[type=text], input[type=file], input[type=textArea] {
+    width: 200px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url("../img/searchicon.png");
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 10px 20px 10px 40px;
+}
+
 #title-container {
     width: 300px;
     margin-top: 0px;
 }
+
 #title-editor {
     width: 100%;
     border: solid #cacaca 1px;
     font-size: 30px;
     text-align: center;
 }
+
 #text-container {
     width: 300px;
 }
+
 #textbox {
     height: 438px!important;
     border: solid #cacaca 1px;
     padding: 10px 10px;
 }
+
 #buttonbox {
     margin-top: 5px;
     text-align: center;
 }
+
 textarea {
     resize: none;
     overflow: hidden!important;
