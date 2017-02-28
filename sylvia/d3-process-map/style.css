@@ -1,0 +1,120 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+html.lt-ie9, html.lt-ie9 body {
+    width: auto;
+    height: 100px;
+}
+
+.unsupported-browser {
+    height: 30px;
+    line-height: 30px;
+    padding: 5px 0 5px 45px;
+    margin: 8px 8px 8px 100px;
+    background: url(ie-notice.png) no-repeat center left;
+    display: none;
+}
+html.lt-ie9 .unsupported-browser {
+    display: block;
+}
+
+.nav-button {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+#docs-list {
+    margin: 50px 8px 8px 8px;
+}
+
+#docs-list .docs {
+    border-bottom: 1px solid #ccc;
+    margin: 12px 0;
+}
+
+html.lt-ie9 #graph-container {
+    display: none;
+}
+
+#split-container {
+    height: 100%;
+    width: 100%;
+}
+
+#graph-container {
+    width: 100%;
+    height: 300px;
+    overflow-y: scroll;
+    visibility: hidden;
+    z-index: -1;
+}
+
+#docs-container {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    border-top: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+    background-color: white;
+    overflow-y: scroll;
+    z-index: 1;
+    bottom: 0;
+    display: none;
+}
+#docs-close {
+    display: block;
+    position: fixed;
+    font-size: 1.4em;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    right: 8px;
+    background: white;
+    color: #333;
+    text-align: center;
+    text-decoration: none;
+    z-index: 2;
+    bottom: 0;
+}
+#docs-close:hover {
+    background: #ccc;
+}
+#docs-scroll {
+    overflow-y: scroll;
+}
+#docs {
+    padding: 8px;
+}
+
+.docs h2 {
+    font-size: 24px; /* h3 */
+    margin-top: 0;
+}
+.docs h3 {
+    font-size: 18px; /* h4 */
+}
+.docs h2 em, .docs h3 em {
+    font-size: 14px;
+    color: #999;
+    padding-left: 4px;
+    font-style: normal;
+}
+.docs pre {
+    margin: 8px;
+    padding: 4px;
+}
+.docs .select-object.missing {
+    color: #c7254e;
+}
+
+#search-container {
+  position: absolute;
+  padding: 8px;
+  z-index: 3;
+  top: 45px;
+}
