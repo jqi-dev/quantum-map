@@ -422,7 +422,7 @@ function delete_node() {
 var fisheye = d3.fisheye.circular()
     .radius(200)
     .distortion(2);
-    
+
 svg.on("mousemove", function() {
     fisheye.focus(d3.mouse(this));
 
