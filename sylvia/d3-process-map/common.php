@@ -58,6 +58,8 @@ function get_html_docs($obj) {
         $markdown .= $pieces[1];
     }
 
+    $markdown .= "<a class=\"btn btn-default nav-button\" id=\"edit-node\" style=\"position: relative; left: 0; margin-bottom: 5px;\">Edit</a>";
+
     $html = Markdown::defaultTransform($markdown);
     // IE can't handle <pre><code> (it eats all the line breaks)
     $html = str_replace('<pre><code>'  , '<pre>' , $html);
@@ -112,7 +114,7 @@ function read_data() {
             if ($data[$name]) {
                 $data[$name]['dependedOnBy'][] = $obj['name'];
             } else {
-                $errors[] = "Unrecognized dependency: '$obj[name]' depends on '$name'";
+                $errors[] = "Unrecognized relationship: '$obj[name]' relates to '$name'";
             }
         }
     }

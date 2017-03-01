@@ -659,6 +659,20 @@ function resize(showDocs) {
 }
 
 /*
+ * Add nodes
+ */
+$('#add-node').on("click", function() {
+  console.log("add");
+});
+
+/*
+ * Remove nodes
+ */
+ $('#remove-node').on("click", function() {
+   console.log("remove");
+ });
+
+/*
  * Search nodes
  */
 $('#search-bar').keyup(function(event) {

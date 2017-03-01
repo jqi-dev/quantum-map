@@ -29,7 +29,9 @@ read_config();
               <a class="btn btn-default nav-button" id="nav-list" href="list.php<?php echo $dataset_qs; ?>">
                 View list
             </a>
-                <div id ="search-container">
+            <a class="btn btn-default nav-button" id="add-node">Add</a>
+            <a class="btn btn-default nav-button" id="remove-node">Remove</a>
+                <div id="search-container">
                   <input type="text" id="search-bar" name="search" placeholder="Search..">
                   <button type="button" id="search-button">></button>
                 </div>
