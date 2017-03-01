@@ -1,0 +1,65 @@
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1px;
+    opacity: 1;
+    marker-end: url(#end);
+
+    transition: opacity 250ms;
+    -webkit-transition: opacity 250ms;
+    -moz-transition: opacity 250ms;
+}
+
+marker#end {
+    fill: #666;
+    stroke: #666;
+    stroke-width: 0px;
+}
+
+.node circle {
+    stroke-width: 0px;
+}
+
+.node text {
+    fill: #000;
+    font: 10px sans-serif;
+    pointer-events: none;
+}
+
+.node.selected circle {
+    filter: url(#blue-glow);
+}
+
+body.firefox .node.selected circle {
+    filter: none;
+    stroke: #000;
+    stroke-width: 2px;
+}
+
+.link.inactive {
+  opacity: .2;
+}
+
+.node.inactive circle,
+.node.inactive text {
+    opacity: .4;
+}
+
+.node.inactive.selected circle,
+.node.inactive.selected text {
+    opacity: 1;
+}
+
+.legend {
+    position: fixed;
+}
+
+.legend .category circle {
+    stroke-width: 0px;
+}
+
+.legend .category text {
+    fill: #000;
+    font: 10px sans-serif;
+    pointer-events: none;
+}
