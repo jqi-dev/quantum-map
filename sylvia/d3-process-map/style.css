@@ -118,11 +118,3 @@ html.lt-ie9 #graph-container {
   z-index: 3;
   top: 45px;
 }
-
-#add-node {
-  margin-left: 88px;
-}
-
-#remove-node {
-  margin-left: 150px;
-}
