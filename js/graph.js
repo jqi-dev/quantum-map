@@ -85,7 +85,6 @@ function restart() {
     simulation.nodes(nodes);
     simulation.force("link").links(links);
     simulation.alpha(0.1).restart();
-
 }
 
 function ticked() {
@@ -176,8 +175,8 @@ d3.select("#download-input").on("click", function() {
 
 tinymce.init({
     selector: '#editor',
-    height: 320,
-    width: 300,
+    height: 352,
+    width: 600,
     menubar: false,
     plugins: [
         'advlist autolink lists link image charmap print preview anchor',
@@ -419,69 +418,94 @@ function delete_node() {
 /*
  * Fisheye distortion
  */
-var fisheye = d3.fisheye.circular()
-    .radius(200)
-    .distortion(2);
+// var fisheye = d3.fisheye.circular()
+//     .radius(200)
+//     .distortion(2);
+//
+// svg.on("mousemove", function() {
+//     fisheye.focus(d3.mouse(this));
+//
+//     node.each(function(d) {
+//             d.fisheye = fisheye(d);
+//         })
+//         .attr("cx", function(d) {
+//             return d.fisheye.x;
+//         })
+//         .attr("cy", function(d) {
+//             return d.fisheye.y;
+//         })
+//         .attr("r", function(d) {
+//             return d.fisheye.z;
+//         });
+//
+//     link.attr("x1", function(d) {
+//             return d.source.fisheye.x;
+//         })
+//         .attr("y1", function(d) {
+//             return d.source.fisheye.y;
+//         })
+//         .attr("x2", function(d) {
+//             return d.target.fisheye.x;
+//         })
+//         .attr("y2", function(d) {
+//             return d.target.fisheye.y;
+//         });
+//
+//     label.attr("x", function(d) {
+//             return d.fisheye.x;
+//         })
+//         .attr("y", function(d) {
+//             return d.fisheye.y - 15;
+//         });
+// });
 
-svg.on("mousemove", function() {
-    fisheye.focus(d3.mouse(this));
-
-    node.each(function(d) {
-            d.fisheye = fisheye(d);
-        })
-        .attr("cx", function(d) {
-            return d.fisheye.x;
-        })
-        .attr("cy", function(d) {
-            return d.fisheye.y;
-        })
-        .attr("r", function(d) {
-            return d.fisheye.z * 4.5;
-        });
-
-    link.attr("x1", function(d) {
-            return d.source.fisheye.x;
-        })
-        .attr("y1", function(d) {
-            return d.source.fisheye.y;
-        })
-        .attr("x2", function(d) {
-            return d.target.fisheye.x;
-        })
-        .attr("y2", function(d) {
-            return d.target.fisheye.y;
-        });
-
-    label.attr("x", function(d) {
-            return d.fisheye.x;
-        })
-        .attr("y", function(d) {
-            return d.fisheye.y - 15;
-        });
-});
 
 /*
  * Search nodes
  */
-d3.select("#search_node").on("click", function() {
-    console.log("search");
-    var searchElement = document.getElementById("search_bar").value;
-    var i;
-    var searchedNode;
-    // find searched term
-    for (i = 0; i < nodes.length; i++) {
-        if (nodes[i].name.toUpperCase() === searchElement.toUpperCase()) {
-            searchedNode = nodes[i];
-        }
+
+//d3.select("#search_node").on("click", function() {
+//    console.log("search");
+//    var searchElement = document.getElementById("search_bar").value;
+//    var i;
+//    var searchedNode;
+//    // find searched term
+//    for (i = 0; i < nodes.length; i++) {
+//        if (nodes[i].name.toUpperCase() === searchElement.toUpperCase()) {
+//            searchedNode = nodes[i];
+//        }
+//    }
+//    // ensure searched term exists
+//    if (searchedNode) {
+//        append_text(searchedNode);
+//        var target = d3.selectAll("circle").filter(function(d) {
+//            return d.id == searchedNode.id;
+//        });
+//        toggle_class(target);
+//    } else {
+//      window.alert("This term does not exist!");
+//    }
+//});
+
+// Redoing search using fuse.js
+
+function search_nodes(element) {
+    var options = {
+        shouldSort: true,
+        minMatchCharLength: 2,
+        keys: ['name', 'body']
     }
-    // ensure searched term exists
-    if (searchedNode) {
-        append_text(searchedNode);
-        var target = d3.selectAll("circle").filter(function(d) {
-            return d.id == searchedNode.id;
-        });
-        toggle_class(target);
-    } else {
-      window.alert("This term does not exist!");
+    var fuse = new Fuse(nodes, options);
+    var result = fuse.search(element);
+    for (i = 0; i < result.length; i++) {
+        console.log(result[i].name)
     }
+}
+    
+var searchElement = document.getElementById("search_bar");
+
+onChange(searchElement, function(e) {
+    search_nodes(searchElement.value);
 });
+
+

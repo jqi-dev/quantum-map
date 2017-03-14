@@ -30,7 +30,7 @@ button {
     background-color: #4CAF50;
     /* Green */
     border: none;
-    border-radius: 10px;
+    border-radius: 4px;
     color: white;
     padding: 10px 15px;
     text-align: center;
@@ -54,7 +54,7 @@ button {
 */
 
 input[type=submit], input[type=text], input[type=file], input[type=textArea] {
-    width: 200px;
+    width: 600px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -66,8 +66,12 @@ input[type=submit], input[type=text], input[type=file], input[type=textArea] {
     padding: 10px 20px 10px 40px;
 }
 
+#search_bar {
+    width: 400px;
+}
+
 #title-container {
-    width: 300px;
+    width: 600px;
     margin-top: 0px;
 }
 
@@ -79,7 +83,7 @@ input[type=submit], input[type=text], input[type=file], input[type=textArea] {
 }
 
 #text-container {
-    width: 300px;
+    width: 600px;
 }
 
 #textbox {
