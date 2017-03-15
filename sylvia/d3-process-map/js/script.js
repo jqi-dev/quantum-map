@@ -542,6 +542,7 @@ function showDescription(obj, el) {
     node.classed('selected', true);
 
     $('#docs').html(obj.docs);
+    $('#docs').prop('title', obj.name);
     $('#docs-container').scrollTop(0);
     resize(true);
 
@@ -659,32 +660,19 @@ function resize(showDocs) {
 }
 
 /*
- * Add nodes
- */
-$('#add-node').on("click", function() {
-  console.log("add");
-});
-
-/*
- * Remove nodes
- */
- $('#remove-node').on("click", function() {
-   console.log("remove");
- });
-
-/*
  * Search nodes
  */
 $('#search-bar').keyup(function(event) {
+    // enable enter key to search
     if (event.keyCode == 13) {
         $('#search-button').click();
     }
 });
 
 $('#search-button').on("click", function() {
-    console.log("search");
     var searchVal = document.getElementById("search-bar").value;
     var searchedObj, searchedEl;
+
     // find searched term
     graph.node.each(function(d) {
         if (d.name.toUpperCase() === searchVal.toUpperCase()) {
@@ -711,8 +699,11 @@ $('#search-button').on("click", function() {
 var fisheye = d3.fisheye.circular()
     .radius(200)
     .distortion(2);
+
 d3.select('#graph').on("mousemove", function() {
     fisheye.focus(d3.mouse(this));
+
+    // circles
     graph.nodeCirc.each(function(d) {
             d.fisheye = fisheye(d);
         })
@@ -726,6 +717,7 @@ d3.select('#graph').on("mousemove", function() {
             return 5 * d.fisheye.z * 4.5;
         });
 
+    // edges
     graph.line.attr("x1", function(d) {
             return d.source.fisheye.x;
         })
@@ -739,6 +731,7 @@ d3.select('#graph').on("mousemove", function() {
             return d.target.fisheye.y;
         });
 
+    // labels
     graph.node.each(function(d) {
         var node = d3.select(this);
         var text = node.selectAll('text');
@@ -750,3 +743,33 @@ d3.select('#graph').on("mousemove", function() {
             });
     });
 });
+
+
+/*
+ * Remove nodes
+ */
+$('#remove-button').on("click", function() {
+  console.log("remove clicked");
+  var r = confirm("Are you sure you want to remove this node?");
+  if (r) {
+    removeNode();
+  }
+});
+function removeNode() {
+  var nodeName = $('#docs').attr('title');
+  var index = 0, found = false;
+  var emptyArray = new Array();
+  console.log(graph.node);
+
+  graph.node.each(function(d) {
+      if (d.name === nodeName) {
+          found = true;
+          console.log("remove node at " + index);
+
+          console.log(d);
+          drawGraph();
+          console.log(d);
+      }
+      index++;
+  });
+}

@@ -85,6 +85,7 @@
         ]
     }, {
         "type"    : "table",
+        "group"   : "Mapping",
         "name"    : "db_table_1",
         "depends" : []
     }, {
@@ -200,6 +201,7 @@
         ]
     }, {
         "type"    : "table",
+        "group"   : "Mapping",
         "name"    : "db_table_21",
         "depends" : []
     }, {
@@ -218,14 +220,17 @@
         ]
     }, {
         "type"    : "table",
+        "group"   : "Mapping",
         "name"    : "db_table_25",
         "depends" : []
     }, {
         "type"    : "table",
+        "group"   : "Mapping",
         "name"    : "db_table_26",
         "depends" : []
     }, {
         "type"    : "table",
+        "group"   : "Mapping",
         "name"    : "db_table_27",
         "depends" : []
     }, {
@@ -249,6 +254,7 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Management",
         "name"    : "query1.sql",
         "depends" : [
             "db_table_9",
@@ -257,24 +263,28 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data1",
         "name"    : "query2.sql",
         "depends" : [
             "db_table_4"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data1",
         "name"    : "query3.sql",
         "depends" : [
             "db_table_4"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data1",
         "name"    : "query4.sql",
         "depends" : [
             "db_table_4"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Miscellaneous",
         "name"    : "query5.sql",
         "depends" : [
             "db_view_9",
@@ -282,6 +292,7 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Miscellaneous",
         "name"    : "query6.sql",
         "depends" : [
             "db_view_12",
@@ -293,6 +304,7 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query7.sql",
         "depends" : [
             "db_view_4",
@@ -300,12 +312,14 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query8.sql",
         "depends" : [
             "db_view_9"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query9.sql",
         "depends" : [
             "db_view_9",
@@ -316,6 +330,7 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query10.sql",
         "depends" : [
             "db_table_2",
@@ -323,36 +338,42 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query11.sql",
         "depends" : [
             "db_view_2"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query12.sql",
         "depends" : [
             "db_view_3"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query13.sql",
         "depends" : [
             "db_view_4"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query14.sql",
         "depends" : [
             "db_view_9"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query15.sql",
         "depends" : [
             "db_view_9"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query16.sql",
         "depends" : [
             "db_view_11",
@@ -360,12 +381,14 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query17.sql",
         "depends" : [
             "db_view_7"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query18.sql",
         "depends" : [
             "db_table_18",
@@ -375,6 +398,7 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query19.sql",
         "depends" : [
             "db_table_18",
@@ -384,6 +408,7 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query20.sql",
         "depends" : [
             "db_view_9",
@@ -392,6 +417,7 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query21.sql",
         "depends" : [
             "db_view_9",
@@ -400,6 +426,7 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data2",
         "name"    : "query22.sql",
         "depends" : [
             "db_view_4",
@@ -408,6 +435,7 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data3",
         "name"    : "query23.sql",
         "depends" : [
             "db_table_15",
@@ -415,6 +443,7 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Data4",
         "name"    : "query24.sql",
         "depends" : [
             "db_table_28",
@@ -422,42 +451,49 @@
         ]
     }, {
         "type"    : "query",
+        "group"   : "Validation",
         "name"    : "query25.sql",
         "depends" : [
             "db_view_9"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Validation",
         "name"    : "query26.sql",
         "depends" : [
             "db_view_9"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Validation",
         "name"    : "query27.sql",
         "depends" : [
             "db_view_8"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Validation",
         "name"    : "query28.sql",
         "depends" : [
             "db_view_3"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Validation",
         "name"    : "query29.sql",
         "depends" : [
             "db_view_11"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Validation",
         "name"    : "query30.sql",
         "depends" : [
             "db_view_12"
         ]
     }, {
         "type"    : "query",
+        "group"   : "Validation",
         "name"    : "query31.sql",
         "depends" : [
             "db_view_9",
@@ -533,12 +569,14 @@
         ]
     }, {
         "type"    : "report",
+        "group"   : "Intermediate",
         "name"    : "Intermediate step 1",
         "depends" : [
             "Data store 1"
         ]
     }, {
         "type"    : "report",
+        "group"   : "Intermediate",
         "name"    : "Intermediate step 2",
         "depends" : [
             "Data store 1"
@@ -576,6 +614,7 @@
         ]
     }, {
         "type"    : "report",
+        "group"   : "Intermediate",
         "name"    : "Intermediate step 3",
         "depends" : [
             "Report 5",
@@ -590,18 +629,21 @@
         ]
     }, {
         "type"    : "report",
+        "group"   : "Reporting",
         "name"    : "Upstream report 1",
         "depends" : [
             "Data store 2"
         ]
     }, {
         "type"    : "report",
+        "group"   : "Reporting",
         "name"    : "Upstream report 2",
         "depends" : [
             "Data store 2"
         ]
     }, {
         "type"    : "report",
+        "group"   : "Reporting",
         "name"    : "Upstream report 3",
         "depends" : [
             "Data store 2"

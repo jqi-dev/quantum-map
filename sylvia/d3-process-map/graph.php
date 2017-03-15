@@ -1,5 +1,6 @@
 <?php
 require_once 'common.php';
+require_once 'editor.php';
 read_config();
 ?>
 <!DOCTYPE html>
@@ -29,8 +30,9 @@ read_config();
               <a class="btn btn-default nav-button" id="nav-list" href="list.php<?php echo $dataset_qs; ?>">
                 View list
             </a>
-            <a class="btn btn-default nav-button" id="add-node">Add</a>
-            <a class="btn btn-default nav-button" id="remove-node">Remove</a>
+            <?php
+              echo getEditorButton();
+            ?>
                 <div id="search-container">
                   <input type="text" id="search-bar" name="search" placeholder="Search..">
                   <button type="button" id="search-button">></button>
