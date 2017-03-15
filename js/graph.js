@@ -1,5 +1,7 @@
 var active_node;
 var Blob;
+var nodes;
+var links;
 
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
@@ -22,13 +24,9 @@ var simulation = d3.forceSimulation()
     .alphaTarget(0)
     .on("tick", ticked);
 
-var nodes;
-var links;
-
 svg.append("g");
 
 var g = svg.select("g");
-
 var link = g.selectAll(".line");
 var node = g.selectAll(".circle");
 var label = g.selectAll(".label");
@@ -464,29 +462,6 @@ function delete_node() {
  * Search nodes
  */
 
-//d3.select("#search_node").on("click", function() {
-//    console.log("search");
-//    var searchElement = document.getElementById("search_bar").value;
-//    var i;
-//    var searchedNode;
-//    // find searched term
-//    for (i = 0; i < nodes.length; i++) {
-//        if (nodes[i].name.toUpperCase() === searchElement.toUpperCase()) {
-//            searchedNode = nodes[i];
-//        }
-//    }
-//    // ensure searched term exists
-//    if (searchedNode) {
-//        append_text(searchedNode);
-//        var target = d3.selectAll("circle").filter(function(d) {
-//            return d.id == searchedNode.id;
-//        });
-//        toggle_class(target);
-//    } else {
-//      window.alert("This term does not exist!");
-//    }
-//});
-
 // Redoing search using fuse.js
 
 function search_nodes(element) {
@@ -507,5 +482,3 @@ var searchElement = document.getElementById("search_bar");
 onChange(searchElement, function(e) {
     search_nodes(searchElement.value);
 });
-
-
